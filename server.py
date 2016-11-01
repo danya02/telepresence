@@ -85,7 +85,7 @@ def on_message(client, userdata, m):
     except IndexError:
         pass
     else:
-        client.publish("ACK", TOPIC)
+        client.publish(m.split(":")[0]+":"+"ACK", TOPIC)
 
 c.on_message = on_message
 c.loop_forever()
