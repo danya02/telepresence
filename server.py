@@ -86,3 +86,6 @@ def on_message(client, userdata, m):
         pass
     else:
         client.publish("ACK", TOPIC)
+
+c.on_message = on_message
+c.loop_forever()
