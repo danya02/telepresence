@@ -16,8 +16,10 @@ global display_relay
 display_relay = gpiozero.LED(3)
 kill_switch = gpiozero.LED(4, initial_value=True)
 c = mqtt.Client()
+c.will_set(TOPIC, payload="DEAD", qos=2)
 c.connect(SERVER)
-c.subscribe(TOPIC)
+c.subscribe(TOPIC, qos=1)
+c.publish("ALIVE", TOPIC)
 
 
 def on_message(client, userdata, m):
