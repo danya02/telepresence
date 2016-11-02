@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 import os
 import time
 SERVER = "127.0.0.1"
-TOPIC = "client1"
+TOPIC = "drone1"
 base.init()
 global motorstat
 motorstat = "STOP"

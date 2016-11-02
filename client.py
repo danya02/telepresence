@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 # import magic.video.transmitter as videoout
 # import magic.video.reciever as videoin
 SERVER = "127.0.0.1"
-TOPIC = "client1"
+TOPIC = "drone1"
 c = mqtt.Client()
 c.connect(SERVER)
 c.subscribe(TOPIC)
@@ -62,7 +62,7 @@ def on_message(client, userdata, m):
     global alive
     m = m.payload.split(":")
     if "RACK" in m:
-        print("Client is alive.")
+        print("Drone is alive.")
         alive = True
     elif "ACK" in m:
         in_progress.remove(m[0])
@@ -72,10 +72,10 @@ def on_message(client, userdata, m):
         in_progress.remove(m[0])
         failed.append(m[0])
     elif "DEAD" in m:
-        print("Client is dead.")
+        print("Drone is dead.")
         alive = False
     elif "ALIVE" in m:
-        print("Client is alive.")
+        print("Drone is alive.")
         alive = True
     else:
         for i in commands:
