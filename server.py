@@ -28,7 +28,8 @@ def on_message(client, userdata, m):
     m = m.payload
     try:
         if "ACK" in m:
-            pass
+            client.publish(m.split(":")[0]+":"+"RACK", TOPIC)
+            raise IndexError
         elif "MOVE" in m:
             if "FORWARD" in m:
                 base.forward()
@@ -47,6 +48,7 @@ def on_message(client, userdata, m):
             motorstat = "STOP"
         elif "MOTORSTAT" in m:
             client.publish(motorstat, TOPIC)
+            raise IndexError
         elif "DISPLAY" in m:
             if "ON" in m:
                 display_relay.on()
