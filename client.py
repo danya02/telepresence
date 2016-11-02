@@ -59,9 +59,11 @@ def on_message(client, userdata, m):
     global failed
     global distat
     global motorstat
+    global alive
     m = m.payload.split(":")
     if "RACK" in m:
         print("Client is alive.")
+        alive = True
     elif "ACK" in m:
         in_progress.remove(m[0])
         done.append(m[0])
@@ -69,6 +71,12 @@ def on_message(client, userdata, m):
         print("Command", m[1:], "failed.")
         in_progress.remove(m[0])
         failed.append(m[0])
+    elif "DEAD" in m:
+        print("Client is dead.")
+        alive = False
+    elif "ALIVE" in m:
+        print("Client is alive.")
+        alive = True
     else:
         for i in commands:
             if m[0] in i:
